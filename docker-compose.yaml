@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: linkshortener_db
+    environment:
+      POSTGRES_DB: linkshortener
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: linkshortener_backend
+    depends_on:
+      - db
+    environment:
+      DB_DSN: postgres://postgres:postgres@db:5432/linkshortener?sslmode=disable
+      SECRET_KEY: your-secret-key-here
+      REFRESH_SECRET_KEY: your-refresh-secret-key-here
+    ports:
+      - "8081:8081"
+
+  frontend:
+    build: ./frontend
+    container_name: linkshortener_frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres_data:
