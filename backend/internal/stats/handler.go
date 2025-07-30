@@ -1,14 +1,14 @@
 package stats
 
 import (
-	"linkshortener/configs"
+	"linkshortener/config"
 	"linkshortener/pkg/res"
 	"net/http"
 	"time"
 )
 
 type StatsHandlerDeps struct {
-	Config          *configs.Config
+	Config          *config.Config
 	StatsRepository *StatsRepository
 }
 

@@ -2,7 +2,7 @@ package migrations
 
 import (
 	"fmt"
-	"linkshortener/configs"
+	"linkshortener/config"
 	"linkshortener/internal/link"
 	"linkshortener/internal/stats"
 	"linkshortener/internal/user"
@@ -13,9 +13,9 @@ import (
 	"gorm.io/gorm"
 )
 
-func waitForDB(config *configs.Config) {
+func waitForDB(config *config.Config) {
 	for {
-		db, err := gorm.Open(postgres.Open(config.DB.DSN), &gorm.Config{})
+		db, err := gorm.Open(postgres.Open(config.DB.URL), &gorm.Config{})
 		if err == nil {
 			if sqlDB, err := db.DB(); err == nil {
 				if err := sqlDB.Ping(); err == nil {
@@ -31,7 +31,7 @@ func waitForDB(config *configs.Config) {
 	}
 }
 
-func RunMigrations(config *configs.Config) *db.Db {
+func RunMigrations(config *config.Config) *db.Db {
 	waitForDB(config)
 
 	database := db.NewDb(config)

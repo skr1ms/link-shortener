@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"linkshortener/configs"
+	"linkshortener/config"
 	"linkshortener/pkg/jwt"
 )
 
@@ -13,7 +13,7 @@ func writeUnauthorized(w http.ResponseWriter) {
 	http.Error(w, "Unauthorized", http.StatusUnauthorized)
 }
 
-func IsAuthenticated(next http.Handler, config *configs.Config) http.Handler {
+func IsAuthenticated(next http.Handler, config *config.Config) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		token := r.Header.Get("Authorization")
 		if token == "" {

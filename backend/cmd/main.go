@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"linkshortener/configs"
+	"linkshortener/config"
 	"linkshortener/internal/auth"
 	"linkshortener/internal/link"
 	"linkshortener/internal/stats"
@@ -12,11 +12,10 @@ import (
 	"linkshortener/pkg/jwt"
 	"linkshortener/pkg/middleware"
 	"net/http"
-	"os"
 )
 
 func appInit() http.Handler {
-	config, err := configs.LoadConfig()
+	config, err := config.LoadConfig()
 	if err != nil {
 		panic(err)
 	}
@@ -41,9 +40,6 @@ func appInit() http.Handler {
 
 	// handlers
 	auth.NewAuthHandler(router, &auth.AuthHandlerDeps{
-		Config: &configs.AuthConfig{
-			SecretKey: os.Getenv("SECRET_KEY"),
-		},
 		AuthService: authService,
 	})
 

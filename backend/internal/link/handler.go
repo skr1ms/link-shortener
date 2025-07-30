@@ -1,7 +1,7 @@
 package link
 
 import (
-	"linkshortener/configs"
+	"linkshortener/config"
 	"linkshortener/pkg/di"
 	"linkshortener/pkg/event"
 	"linkshortener/pkg/middleware"
@@ -14,7 +14,7 @@ import (
 )
 
 type LinkHandlerDeps struct {
-	Config         *configs.Config
+	Config         *config.Config
 	LinkRepository *LinkRepository
 	EventBus       di.IEventBus
 }

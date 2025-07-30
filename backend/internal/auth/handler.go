@@ -3,13 +3,11 @@ package auth
 import (
 	"net/http"
 
-	"linkshortener/configs"
 	"linkshortener/pkg/req"
 	"linkshortener/pkg/res"
 )
 
 type AuthHandlerDeps struct {
-	Config      *configs.AuthConfig
 	AuthService *AuthService
 }
 
